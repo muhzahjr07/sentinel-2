@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sri Lanka Gemstone Remote Sensing & Exploration Portal</title>
+  <style>
+    :root {
+      --bg-dark: #0a0e14;
+      --card-bg: #121820;
+      --card-border: #1e293b;
+      --accent-gold: #fbbf24;
+      --accent-gold-hover: #f59e0b;
+      --accent-cyan: #38bdf8;
+      --accent-emerald: #34d399;
+      --text-main: #f1f5f9;
+      --text-muted: #94a3b8;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: radial-gradient(circle at 50% 0%, #151e2e 0%, var(--bg-dark) 75%);
+      color: var(--text-main);
+      min-height: 100vh;
+      padding: 30px 20px;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+    .badge-bar {
+      display: inline-flex;
+      gap: 10px;
+      margin-bottom: 15px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .badge {
+      background: rgba(56, 189, 248, 0.12);
+      color: var(--accent-cyan);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      padding: 4px 14px;
+      border-radius: 9999px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      text-transform: uppercase;
+    }
+    .badge.gold {
+      background: rgba(251, 191, 36, 0.12);
+      color: var(--accent-gold);
+      border-color: rgba(251, 191, 36, 0.3);
+    }
+    .badge.green {
+      background: rgba(52, 211, 153, 0.12);
+      color: var(--accent-emerald);
+      border-color: rgba(52, 211, 153, 0.3);
+    }
+    h1 {
+      font-size: 32px;
+      font-weight: 800;
+      color: var(--accent-gold);
+      letter-spacing: -0.5px;
+      margin-bottom: 10px;
+    }
+    .lead {
+      color: var(--text-muted);
+      font-size: 16px;
+      max-width: 780px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+    .grid-surveys {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+      gap: 25px;
+      margin-bottom: 45px;
+    }
+    .survey-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.25s ease, border-color 0.25s ease;
+    }
+    .survey-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(251, 191, 36, 0.4);
+    }
+    .card-media {
+      height: 220px;
+      background: #080c10;
+      position: relative;
+      overflow: hidden;
+      border-bottom: 1px solid var(--card-border);
+    }
+    .card-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+    .survey-card:hover .card-media img {
+      transform: scale(1.03);
+    }
+    .card-pill {
+      position: absolute;
+      top: 14px;
+      left: 14px;
+      background: rgba(10, 14, 20, 0.85);
+      backdrop-filter: blur(8px);
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--accent-gold);
+      border: 1px solid rgba(251, 191, 36, 0.3);
+    }
+    .card-body {
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+    .card-title {
+      font-size: 20px;
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+    .coords {
+      font-family: monospace;
+      font-size: 13px;
+      color: var(--accent-cyan);
+      margin-bottom: 14px;
+    }
+    .meta-list {
+      list-style: none;
+      margin-bottom: 20px;
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.8;
+    }
+    .meta-list li strong {
+      color: var(--text-main);
+    }
+    .btn-launch {
+      margin-top: auto;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: linear-gradient(135deg, #d97706 0%, #b45309 100%);
+      color: #ffffff;
+      padding: 12px 20px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 14px;
+      transition: background 0.2s ease, box-shadow 0.2s ease;
+      box-shadow: 0 4px 14px rgba(217, 119, 6, 0.3);
+    }
+    .btn-launch:hover {
+      background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+      box-shadow: 0 6px 20px rgba(245, 158, 11, 0.45);
+    }
+    .section-title {
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      color: var(--accent-gold);
+      border-bottom: 1px solid var(--card-border);
+      padding-bottom: 8px;
+    }
+    .indices-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 18px;
+      margin-bottom: 40px;
+    }
+    .index-box {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 10px;
+      padding: 18px;
+    }
+    .index-box h3 {
+      font-size: 16px;
+      color: var(--accent-cyan);
+      margin-bottom: 6px;
+    }
+    .index-formula {
+      font-family: monospace;
+      font-size: 12px;
+      color: var(--accent-gold);
+      background: #080c10;
+      padding: 4px 8px;
+      border-radius: 4px;
+      display: inline-block;
+      margin-bottom: 8px;
+    }
+    .index-box p {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+    footer {
+      text-align: center;
+      border-top: 1px solid var(--card-border);
+      padding-top: 25px;
+      color: var(--text-muted);
+      font-size: 13px;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="badge-bar">
+        <span class="badge gold">Gemstone Exploration Toolkit</span>
+        <span class="badge green">Sentinel-2 & ASTER Multi-Sensor</span>
+        <span class="badge">Sri Lanka Highland Complex</span>
+      </div>
+      <h1>Sentinel-2 Gemstone Exploration Portal</h1>
+      <p class="lead">
+        Geospatial remote sensing pipelines, spectral mineral alteration indices, and high-resolution 1km-radius 
+        ultra close-up grid survey platforms for alluvium and saprolite gem placer reconnaissance in Sri Lanka.
+      </p>
+    </header>
+
+    <div class="grid-surveys">
+      <!-- Survey 1: Ambewila, Ratnapura -->
+      <div class="survey-card">
+        <div class="card-media">
+          <img src="sentinel-2%206.526333%20N,%2080.725944%20E%20(Ambewila,%20Ratnapura/00_GRID_INDEX_ALLUVIAL.png" alt="Ambewila Alluvial Grid Map">
+          <div class="card-pill">Survey Zone 01</div>
+        </div>
+        <div class="card-body">
+          <div class="card-title">Ambewila, Ratnapura</div>
+          <div class="coords">6.526333° N, 80.725944° E (MGRS: 44NKM)</div>
+          <ul class="meta-list">
+            <li><strong>Survey Type:</strong> 1 km Radius Ultra Close-Up Survey</li>
+            <li><strong>Grid Layout:</strong> 49 Cells (7x7 Matrix, A1 to G7 @ 300m)</li>
+            <li><strong>Resolution:</strong> Sub-meter (~58 cm/pixel) Optical</li>
+            <li><strong>Features:</strong> Interactive Dual-Layer Toggle (Alluvial vs. Raw)</li>
+          </ul>
+          <a class="btn-launch" href="./sentinel-2%206.526333%20N,%2080.725944%20E%20(Ambewila,%20Ratnapura/index.html">
+            Launch Ambewila Survey Viewer &rarr;
+          </a>
+        </div>
+      </div>
+
+      <!-- Survey 2: Algama, Kegalle -->
+      <div class="survey-card">
+        <div class="card-media">
+          <img src="ultra_closeup_1km_algama/00_GRID_INDEX_ALLUVIAL.png" alt="Algama Alluvial Grid Map">
+          <div class="card-pill">Survey Zone 02</div>
+        </div>
+        <div class="card-body">
+          <div class="card-title">Algama, Kegalle</div>
+          <div class="coords">7.133417° N, 80.160333° E (7°08'00.3"N 80°09'37.2"E)</div>
+          <ul class="meta-list">
+            <li><strong>Survey Type:</strong> 1 km Radius Ultra Close-Up Survey</li>
+            <li><strong>Grid Layout:</strong> 49 Cells (7x7 Matrix, A1 to G7 @ 300m)</li>
+            <li><strong>Resolution:</strong> Sub-meter (~58 cm/pixel) Optical</li>
+            <li><strong>Features:</strong> Drainage Corridor & Placer Trap Markings</li>
+          </ul>
+          <a class="btn-launch" href="./ultra_closeup_1km_algama/index.html">
+            Launch Algama Survey Viewer &rarr;
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <h2 class="section-title">Spectral Mineral Indices Architecture</h2>
+    <div class="indices-grid">
+      <div class="index-box">
+        <h3>Iron Oxide Ratio (IOR)</h3>
+        <div class="index-formula">IOR = B04 / B02 (Red / Blue)</div>
+        <p>Highlights goethite, hematite, and limonite staining prevalent in decomposed saprolite profiles and heavy-mineral illam gravels.</p>
+      </div>
+
+      <div class="index-box">
+        <h3>Clay Minerals Ratio (CR)</h3>
+        <div class="index-formula">CR = B11 / B12 (SWIR-1 / SWIR-2)</div>
+        <p>Detects Al-OH absorption doublet (2.16-2.20 µm) characteristic of kaolinite and illite formed during pegmatite & gneissic bedrock weathering.</p>
+      </div>
+
+      <div class="index-box">
+        <h3>Hydroxyl Alteration (HI)</h3>
+        <div class="index-formula">HI = B11 / B08 (SWIR-1 / NIR)</div>
+        <p>Measures hydroxyl-bearing mineral presence and hydrothermal alteration boundaries across Precambrian metamorphic belts.</p>
+      </div>
+
+      <div class="index-box">
+        <h3>Placer Favorability Model</h3>
+        <div class="index-formula">Z_fav = 0.35·Z(IOR) + 0.35·Z(CR) - 0.5·Z(NDVI)</div>
+        <p>Multi-criteria synthesis scoring mineral enrichment on non-vegetated exposed riverbeds, gravel bars, and alluvial terraces.</p>
+      </div>
+    </div>
+
+    <footer>
+      <p>Sentinel-2 & Multi-Sensor Gemstone Exploration Toolkit | Developed by Muhammad Zaharan</p>
+      <p style="margin-top: 6px; font-size: 12px; color: #64748b;">
+        Compliant with the National Gem and Jewellery Authority of Sri Lanka (NGJA) survey principles.
+      </p>
+    </footer>
+  </div>
+</body>
+</html>

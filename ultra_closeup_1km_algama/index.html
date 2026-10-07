@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>1km Radius Ultra Close-Up Survey - Algama, Kegalle (7.133417 N, 80.160333 E)</title>
+<style>
+* { box-sizing: border-box; }
+body { font-family: 'Segoe UI', Tahoma, sans-serif; background: #0c1015; color: #e2e8f0; margin: 0; padding: 20px; }
+header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #232d3b; padding-bottom: 15px; margin-bottom: 15px; }
+h1 { margin: 0; font-size: 22px; color: #ffd700; }
+.subtitle { font-size: 13px; color: #94a3b8; margin-top: 4px; }
+
+.toggle-container { display: flex; align-items: center; gap: 12px; background: #161e29; padding: 8px 16px; border-radius: 30px; border: 1px solid #2d3b4e; }
+.toggle-label { font-size: 14px; font-weight: 600; }
+.toggle-label.alluvial { color: #ecc94b; }
+.toggle-label.raw { color: #63b3ed; }
+
+.switch { position: relative; display: inline-block; width: 64px; height: 32px; }
+.switch input { opacity: 0; width: 0; height: 0; }
+.slider { position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #3182ce; transition: .3s; border-radius: 34px; box-shadow: inset 0 2px 4px rgba(0,0,0,0.4); }
+.slider:before { position: absolute; content: ""; height: 24px; width: 24px; left: 4px; bottom: 4px; background-color: white; transition: .3s; border-radius: 50%; box-shadow: 0 2px 5px rgba(0,0,0,0.3); }
+input:checked + .slider { background-color: #d69e2e; }
+input:checked + .slider:before { transform: translateX(32px); }
+
+.layout { display: flex; gap: 20px; }
+.grid-panel { flex: 0 0 420px; }
+.view-panel { flex: 1; background: #131922; border-radius: 10px; padding: 18px; text-align: center; border: 1px solid #232d3b; box-shadow: 0 8px 24px rgba(0,0,0,0.5); }
+
+.grid-table { border-collapse: collapse; margin-top: 10px; width: 100%; }
+.grid-table td { width: 14.28%; height: 50px; text-align: center; border: 1px solid #232d3b; font-weight: bold; cursor: pointer; transition: all 0.15s; background: #18202c; font-size: 13px; }
+.grid-table td:hover { background: #2d3748; transform: scale(1.05); z-index: 10; border-color: #cbd5e0; }
+.grid-table td.target { background: #742a2a; color: #fff; border: 2px solid #e53e3e; }
+.grid-table td.active { border: 2px solid #ecc94b; background: #2a3442; color: #ecc94b; }
+
+.img-container { position: relative; display: inline-block; max-width: 100%; }
+img.preview { max-width: 100%; max-height: 72vh; border-radius: 6px; box-shadow: 0 4px 20px rgba(0,0,0,0.6); display: block; }
+
+.details { margin-top: 12px; font-size: 15px; color: #ecc94b; font-weight: 600; letter-spacing: 0.3px; }
+.legend-bar { display: flex; justify-content: center; gap: 20px; margin-top: 14px; padding: 8px 16px; background: #161e29; border-radius: 6px; font-size: 13px; border: 1px solid #232d3b; }
+.leg-item { display: flex; align-items: center; gap: 6px; }
+.leg-box { width: 14px; height: 14px; border-radius: 3px; }
+
+.btn-nav { background: #2b6cb0; color: white; border: none; padding: 9px 18px; border-radius: 6px; cursor: pointer; margin: 4px; font-weight: 500; font-size: 13px; }
+.btn-nav:hover { background: #3182ce; }
+.key-hint { font-size: 12px; color: #718096; margin-top: 8px; }
+</style>
+</head>
+<body>
+
+<header>
+  <div>
+    <h1>Algama, Kegalle 1 km Radius Ultra Close-Up Survey (49 Cells @ 300m)</h1>
+    <div class="subtitle">Target: 7.133417 N, 80.160333 E (7°08'00.3"N 80°09'37.2"E - Algama, Sabaragamuwa) | ~58 cm/pixel</div>
+  </div>
+  <div class="toggle-container">
+    <span class="toggle-label raw" id="lbl-raw">Raw Satellite</span>
+    <label class="switch">
+      <input type="checkbox" id="markingsToggle" checked onchange="toggleMarkings()">
+      <span class="slider"></span>
+    </label>
+    <span class="toggle-label alluvial" id="lbl-alluvial">Alluvial Markings</span>
+  </div>
+</header>
+
+<div class="layout">
+  <div class="grid-panel">
+    <div style="display:flex; justify-content: space-between; align-items: center;">
+      <b>Select Cell (A1 to G7):</b>
+      <button class="btn-nav" onclick="showOverview()">Grid Index Map</button>
+    </div>
+    <table class="grid-table">
+<tr><td id="btn_A1" class="" onclick="showCell('A1')">A1</td><td id="btn_A2" class="" onclick="showCell('A2')">A2</td><td id="btn_A3" class="" onclick="showCell('A3')">A3</td><td id="btn_A4" class="" onclick="showCell('A4')">A4</td><td id="btn_A5" class="" onclick="showCell('A5')">A5</td><td id="btn_A6" class="" onclick="showCell('A6')">A6</td><td id="btn_A7" class="" onclick="showCell('A7')">A7</td></tr>
+<tr><td id="btn_B1" class="" onclick="showCell('B1')">B1</td><td id="btn_B2" class="" onclick="showCell('B2')">B2</td><td id="btn_B3" class="" onclick="showCell('B3')">B3</td><td id="btn_B4" class="" onclick="showCell('B4')">B4</td><td id="btn_B5" class="" onclick="showCell('B5')">B5</td><td id="btn_B6" class="" onclick="showCell('B6')">B6</td><td id="btn_B7" class="" onclick="showCell('B7')">B7</td></tr>
+<tr><td id="btn_C1" class="" onclick="showCell('C1')">C1</td><td id="btn_C2" class="" onclick="showCell('C2')">C2</td><td id="btn_C3" class="" onclick="showCell('C3')">C3</td><td id="btn_C4" class="" onclick="showCell('C4')">C4</td><td id="btn_C5" class="" onclick="showCell('C5')">C5</td><td id="btn_C6" class="" onclick="showCell('C6')">C6</td><td id="btn_C7" class="" onclick="showCell('C7')">C7</td></tr>
+<tr><td id="btn_D1" class="" onclick="showCell('D1')">D1</td><td id="btn_D2" class="" onclick="showCell('D2')">D2</td><td id="btn_D3" class="" onclick="showCell('D3')">D3</td><td id="btn_D4" class="target" onclick="showCell('D4')">D4</td><td id="btn_D5" class="" onclick="showCell('D5')">D5</td><td id="btn_D6" class="" onclick="showCell('D6')">D6</td><td id="btn_D7" class="" onclick="showCell('D7')">D7</td></tr>
+<tr><td id="btn_E1" class="" onclick="showCell('E1')">E1</td><td id="btn_E2" class="" onclick="showCell('E2')">E2</td><td id="btn_E3" class="" onclick="showCell('E3')">E3</td><td id="btn_E4" class="" onclick="showCell('E4')">E4</td><td id="btn_E5" class="" onclick="showCell('E5')">E5</td><td id="btn_E6" class="" onclick="showCell('E6')">E6</td><td id="btn_E7" class="" onclick="showCell('E7')">E7</td></tr>
+<tr><td id="btn_F1" class="" onclick="showCell('F1')">F1</td><td id="btn_F2" class="" onclick="showCell('F2')">F2</td><td id="btn_F3" class="" onclick="showCell('F3')">F3</td><td id="btn_F4" class="" onclick="showCell('F4')">F4</td><td id="btn_F5" class="" onclick="showCell('F5')">F5</td><td id="btn_F6" class="" onclick="showCell('F6')">F6</td><td id="btn_F7" class="" onclick="showCell('F7')">F7</td></tr>
+<tr><td id="btn_G1" class="" onclick="showCell('G1')">G1</td><td id="btn_G2" class="" onclick="showCell('G2')">G2</td><td id="btn_G3" class="" onclick="showCell('G3')">G3</td><td id="btn_G4" class="" onclick="showCell('G4')">G4</td><td id="btn_G5" class="" onclick="showCell('G5')">G5</td><td id="btn_G6" class="" onclick="showCell('G6')">G6</td><td id="btn_G7" class="" onclick="showCell('G7')">G7</td></tr>
+    </table>
+    <div class="key-hint">Tip: Press <b>SPACE</b> or <b>T</b> on your keyboard to toggle markings instantly.</div>
+  </div>
+  <div class="view-panel">
+    <div id="cell-title" class="details">Cell D4 | CENTER TARGET (7.133417 N, 80.160333 E)</div>
+    <div class="img-container">
+      <img id="main-img" class="preview" src="Cell_D4_alluvial.png" alt="Satellite Cell">
+    </div>
+    <div class="legend-bar" id="legendBar">
+      <div class="leg-item"><div class="leg-box" style="background:#ff4600;"></div> Fe Laterite / Gravel Soil</div>
+      <div class="leg-item"><div class="leg-box" style="background:#00f5ff;"></div> Valley Stream Axis / Drainage</div>
+      <div class="leg-item"><div class="leg-box" style="background:#ffd700;"></div> Alluvial Placer Corridor</div>
+      <div class="leg-item"><div class="leg-box" style="background:#e53e3e;"></div> Target Pinpoint</div>
+    </div>
+  </div>
+</div>
+
+<script>
+const cells = [{"id": "A1", "raw_file": "Cell_A1_raw.png", "alluvial_file": "Cell_A1_alluvial.png", "dir_str": "1273m North-West", "lat": 7.141501766282333, "lon": 80.15218509491353, "dist_m": 1272.7922061357854, "is_target": false, "x1": 269, "y1": 54, "x2": 775, "y2": 560}, {"id": "A2", "raw_file": "Cell_A2_raw.png", "alluvial_file": "Cell_A2_alluvial.png", "dir_str": "1082m North-West", "lat": 7.141501766282333, "lon": 80.15490106327564, "dist_m": 1081.6653826391967, "is_target": false, "x1": 775, "y1": 54, "x2": 1282, "y2": 560}, {"id": "A3", "raw_file": "Cell_A3_raw.png", "alluvial_file": "Cell_A3_alluvial.png", "dir_str": "949m North-West", "lat": 7.141501766282333, "lon": 80.15761703163781, "dist_m": 948.6832980505138, "is_target": false, "x1": 1282, "y1": 54, "x2": 1788, "y2": 560}, {"id": "A4", "raw_file": "Cell_A4_raw.png", "alluvial_file": "Cell_A4_alluvial.png", "dir_str": "900m North", "lat": 7.141501766282333, "lon": 80.16033299999998, "dist_m": 900.0, "is_target": false, "x1": 1788, "y1": 54, "x2": 2294, "y2": 560}, {"id": "A5", "raw_file": "Cell_A5_raw.png", "alluvial_file": "Cell_A5_alluvial.png", "dir_str": "949m North-East", "lat": 7.141501766282333, "lon": 80.16304896836215, "dist_m": 948.6832980505138, "is_target": false, "x1": 2294, "y1": 54, "x2": 2801, "y2": 560}, {"id": "A6", "raw_file": "Cell_A6_raw.png", "alluvial_file": "Cell_A6_alluvial.png", "dir_str": "1082m North-East", "lat": 7.141501766282333, "lon": 80.16576493672432, "dist_m": 1081.6653826391967, "is_target": false, "x1": 2801, "y1": 54, "x2": 3307, "y2": 560}, {"id": "A7", "raw_file": "Cell_A7_raw.png", "alluvial_file": "Cell_A7_alluvial.png", "dir_str": "1273m North-East", "lat": 7.141501766282333, "lon": 80.16848090508643, "dist_m": 1272.7922061357854, "is_target": false, "x1": 3307, "y1": 54, "x2": 3813, "y2": 560}, {"id": "B1", "raw_file": "Cell_B1_raw.png", "alluvial_file": "Cell_B1_alluvial.png", "dir_str": "1082m North-West", "lat": 7.138806860061701, "lon": 80.15218509491353, "dist_m": 1081.6653826391967, "is_target": false, "x1": 269, "y1": 560, "x2": 775, "y2": 1067}, {"id": "B2", "raw_file": "Cell_B2_raw.png", "alluvial_file": "Cell_B2_alluvial.png", "dir_str": "849m North-West", "lat": 7.138806860061701, "lon": 80.15490106327564, "dist_m": 848.5281374238571, "is_target": false, "x1": 775, "y1": 560, "x2": 1282, "y2": 1067}, {"id": "B3", "raw_file": "Cell_B3_raw.png", "alluvial_file": "Cell_B3_alluvial.png", "dir_str": "671m North-West", "lat": 7.138806860061701, "lon": 80.15761703163781, "dist_m": 670.820393249937, "is_target": false, "x1": 1282, "y1": 560, "x2": 1788, "y2": 1067}, {"id": "B4", "raw_file": "Cell_B4_raw.png", "alluvial_file": "Cell_B4_alluvial.png", "dir_str": "600m North", "lat": 7.138806860061701, "lon": 80.16033299999998, "dist_m": 600.0, "is_target": false, "x1": 1788, "y1": 560, "x2": 2294, "y2": 1067}, {"id": "B5", "raw_file": "Cell_B5_raw.png", "alluvial_file": "Cell_B5_alluvial.png", "dir_str": "671m North-East", "lat": 7.138806860061701, "lon": 80.16304896836215, "dist_m": 670.820393249937, "is_target": false, "x1": 2294, "y1": 560, "x2": 2801, "y2": 1067}, {"id": "B6", "raw_file": "Cell_B6_raw.png", "alluvial_file": "Cell_B6_alluvial.png", "dir_str": "849m North-East", "lat": 7.138806860061701, "lon": 80.16576493672432, "dist_m": 848.5281374238571, "is_target": false, "x1": 2801, "y1": 560, "x2": 3307, "y2": 1067}, {"id": "B7", "raw_file": "Cell_B7_raw.png", "alluvial_file": "Cell_B7_alluvial.png", "dir_str": "1082m North-East", "lat": 7.138806860061701, "lon": 80.16848090508643, "dist_m": 1081.6653826391967, "is_target": false, "x1": 3307, "y1": 560, "x2": 3813, "y2": 1067}, {"id": "C1", "raw_file": "Cell_C1_raw.png", "alluvial_file": "Cell_C1_alluvial.png", "dir_str": "949m North-West", "lat": 7.136111937965648, "lon": 80.15218509491353, "dist_m": 948.6832980505138, "is_target": false, "x1": 269, "y1": 1067, "x2": 775, "y2": 1573}, {"id": "C2", "raw_file": "Cell_C2_raw.png", "alluvial_file": "Cell_C2_alluvial.png", "dir_str": "671m North-West", "lat": 7.136111937965648, "lon": 80.15490106327564, "dist_m": 670.820393249937, "is_target": false, "x1": 775, "y1": 1067, "x2": 1282, "y2": 1573}, {"id": "C3", "raw_file": "Cell_C3_raw.png", "alluvial_file": "Cell_C3_alluvial.png", "dir_str": "424m North-West", "lat": 7.136111937965648, "lon": 80.15761703163781, "dist_m": 424.26406871192853, "is_target": false, "x1": 1282, "y1": 1067, "x2": 1788, "y2": 1573}, {"id": "C4", "raw_file": "Cell_C4_raw.png", "alluvial_file": "Cell_C4_alluvial.png", "dir_str": "300m North", "lat": 7.136111937965648, "lon": 80.16033299999998, "dist_m": 300.0, "is_target": false, "x1": 1788, "y1": 1067, "x2": 2294, "y2": 1573}, {"id": "C5", "raw_file": "Cell_C5_raw.png", "alluvial_file": "Cell_C5_alluvial.png", "dir_str": "424m North-East", "lat": 7.136111937965648, "lon": 80.16304896836215, "dist_m": 424.26406871192853, "is_target": false, "x1": 2294, "y1": 1067, "x2": 2801, "y2": 1573}, {"id": "C6", "raw_file": "Cell_C6_raw.png", "alluvial_file": "Cell_C6_alluvial.png", "dir_str": "671m North-East", "lat": 7.136111937965648, "lon": 80.16576493672432, "dist_m": 670.820393249937, "is_target": false, "x1": 2801, "y1": 1067, "x2": 3307, "y2": 1573}, {"id": "C7", "raw_file": "Cell_C7_raw.png", "alluvial_file": "Cell_C7_alluvial.png", "dir_str": "949m North-East", "lat": 7.136111937965648, "lon": 80.16848090508643, "dist_m": 948.6832980505138, "is_target": false, "x1": 3307, "y1": 1067, "x2": 3813, "y2": 1573}, {"id": "D1", "raw_file": "Cell_D1_raw.png", "alluvial_file": "Cell_D1_alluvial.png", "dir_str": "900m West", "lat": 7.133417000000007, "lon": 80.15218509491353, "dist_m": 900.0, "is_target": false, "x1": 269, "y1": 1573, "x2": 775, "y2": 2079}, {"id": "D2", "raw_file": "Cell_D2_raw.png", "alluvial_file": "Cell_D2_alluvial.png", "dir_str": "600m West", "lat": 7.133417000000007, "lon": 80.15490106327564, "dist_m": 600.0, "is_target": false, "x1": 775, "y1": 1573, "x2": 1282, "y2": 2079}, {"id": "D3", "raw_file": "Cell_D3_raw.png", "alluvial_file": "Cell_D3_alluvial.png", "dir_str": "300m West", "lat": 7.133417000000007, "lon": 80.15761703163781, "dist_m": 300.0, "is_target": false, "x1": 1282, "y1": 1573, "x2": 1788, "y2": 2079}, {"id": "D4", "raw_file": "Cell_D4_raw.png", "alluvial_file": "Cell_D4_alluvial.png", "dir_str": "CENTER TARGET", "lat": 7.133417000000007, "lon": 80.16033299999998, "dist_m": 0.0, "is_target": true, "x1": 1788, "y1": 1573, "x2": 2294, "y2": 2079}, {"id": "D5", "raw_file": "Cell_D5_raw.png", "alluvial_file": "Cell_D5_alluvial.png", "dir_str": "300m East", "lat": 7.133417000000007, "lon": 80.16304896836215, "dist_m": 300.0, "is_target": false, "x1": 2294, "y1": 1573, "x2": 2801, "y2": 2079}, {"id": "D6", "raw_file": "Cell_D6_raw.png", "alluvial_file": "Cell_D6_alluvial.png", "dir_str": "600m East", "lat": 7.133417000000007, "lon": 80.16576493672432, "dist_m": 600.0, "is_target": false, "x1": 2801, "y1": 1573, "x2": 3307, "y2": 2079}, {"id": "D7", "raw_file": "Cell_D7_raw.png", "alluvial_file": "Cell_D7_alluvial.png", "dir_str": "900m East", "lat": 7.133417000000007, "lon": 80.16848090508643, "dist_m": 900.0, "is_target": false, "x1": 3307, "y1": 1573, "x2": 3813, "y2": 2079}, {"id": "E1", "raw_file": "Cell_E1_raw.png", "alluvial_file": "Cell_E1_alluvial.png", "dir_str": "949m South-West", "lat": 7.1307220461706615, "lon": 80.15218509491353, "dist_m": 948.6832980505138, "is_target": false, "x1": 269, "y1": 2079, "x2": 775, "y2": 2585}, {"id": "E2", "raw_file": "Cell_E2_raw.png", "alluvial_file": "Cell_E2_alluvial.png", "dir_str": "671m South-West", "lat": 7.1307220461706615, "lon": 80.15490106327564, "dist_m": 670.820393249937, "is_target": false, "x1": 775, "y1": 2079, "x2": 1282, "y2": 2585}, {"id": "E3", "raw_file": "Cell_E3_raw.png", "alluvial_file": "Cell_E3_alluvial.png", "dir_str": "424m South-West", "lat": 7.1307220461706615, "lon": 80.15761703163781, "dist_m": 424.26406871192853, "is_target": false, "x1": 1282, "y1": 2079, "x2": 1788, "y2": 2585}, {"id": "E4", "raw_file": "Cell_E4_raw.png", "alluvial_file": "Cell_E4_alluvial.png", "dir_str": "300m South", "lat": 7.1307220461706615, "lon": 80.16033299999998, "dist_m": 300.0, "is_target": false, "x1": 1788, "y1": 2079, "x2": 2294, "y2": 2585}, {"id": "E5", "raw_file": "Cell_E5_raw.png", "alluvial_file": "Cell_E5_alluvial.png", "dir_str": "424m South-East", "lat": 7.1307220461706615, "lon": 80.16304896836215, "dist_m": 424.26406871192853, "is_target": false, "x1": 2294, "y1": 2079, "x2": 2801, "y2": 2585}, {"id": "E6", "raw_file": "Cell_E6_raw.png", "alluvial_file": "Cell_E6_alluvial.png", "dir_str": "671m South-East", "lat": 7.1307220461706615, "lon": 80.16576493672432, "dist_m": 670.820393249937, "is_target": false, "x1": 2801, "y1": 2079, "x2": 3307, "y2": 2585}, {"id": "E7", "raw_file": "Cell_E7_raw.png", "alluvial_file": "Cell_E7_alluvial.png", "dir_str": "949m South-East", "lat": 7.1307220461706615, "lon": 80.16848090508643, "dist_m": 948.6832980505138, "is_target": false, "x1": 3307, "y1": 2079, "x2": 3813, "y2": 2585}, {"id": "F1", "raw_file": "Cell_F1_raw.png", "alluvial_file": "Cell_F1_alluvial.png", "dir_str": "1082m South-West", "lat": 7.1280270764835025, "lon": 80.15218509491353, "dist_m": 1081.6653826391967, "is_target": false, "x1": 269, "y1": 2585, "x2": 775, "y2": 3092}, {"id": "F2", "raw_file": "Cell_F2_raw.png", "alluvial_file": "Cell_F2_alluvial.png", "dir_str": "849m South-West", "lat": 7.1280270764835025, "lon": 80.15490106327564, "dist_m": 848.5281374238571, "is_target": false, "x1": 775, "y1": 2585, "x2": 1282, "y2": 3092}, {"id": "F3", "raw_file": "Cell_F3_raw.png", "alluvial_file": "Cell_F3_alluvial.png", "dir_str": "671m South-West", "lat": 7.1280270764835025, "lon": 80.15761703163781, "dist_m": 670.820393249937, "is_target": false, "x1": 1282, "y1": 2585, "x2": 1788, "y2": 3092}, {"id": "F4", "raw_file": "Cell_F4_raw.png", "alluvial_file": "Cell_F4_alluvial.png", "dir_str": "600m South", "lat": 7.1280270764835025, "lon": 80.16033299999998, "dist_m": 600.0, "is_target": false, "x1": 1788, "y1": 2585, "x2": 2294, "y2": 3092}, {"id": "F5", "raw_file": "Cell_F5_raw.png", "alluvial_file": "Cell_F5_alluvial.png", "dir_str": "671m South-East", "lat": 7.1280270764835025, "lon": 80.16304896836215, "dist_m": 670.820393249937, "is_target": false, "x1": 2294, "y1": 2585, "x2": 2801, "y2": 3092}, {"id": "F6", "raw_file": "Cell_F6_raw.png", "alluvial_file": "Cell_F6_alluvial.png", "dir_str": "849m South-East", "lat": 7.1280270764835025, "lon": 80.16576493672432, "dist_m": 848.5281374238571, "is_target": false, "x1": 2801, "y1": 2585, "x2": 3307, "y2": 3092}, {"id": "F7", "raw_file": "Cell_F7_raw.png", "alluvial_file": "Cell_F7_alluvial.png", "dir_str": "1082m South-East", "lat": 7.1280270764835025, "lon": 80.16848090508643, "dist_m": 1081.6653826391967, "is_target": false, "x1": 3307, "y1": 2585, "x2": 3813, "y2": 3092}, {"id": "G1", "raw_file": "Cell_G1_raw.png", "alluvial_file": "Cell_G1_alluvial.png", "dir_str": "1273m South-West", "lat": 7.125332090944362, "lon": 80.15218509491353, "dist_m": 1272.7922061357854, "is_target": false, "x1": 269, "y1": 3092, "x2": 775, "y2": 3598}, {"id": "G2", "raw_file": "Cell_G2_raw.png", "alluvial_file": "Cell_G2_alluvial.png", "dir_str": "1082m South-West", "lat": 7.125332090944362, "lon": 80.15490106327564, "dist_m": 1081.6653826391967, "is_target": false, "x1": 775, "y1": 3092, "x2": 1282, "y2": 3598}, {"id": "G3", "raw_file": "Cell_G3_raw.png", "alluvial_file": "Cell_G3_alluvial.png", "dir_str": "949m South-West", "lat": 7.125332090944362, "lon": 80.15761703163781, "dist_m": 948.6832980505138, "is_target": false, "x1": 1282, "y1": 3092, "x2": 1788, "y2": 3598}, {"id": "G4", "raw_file": "Cell_G4_raw.png", "alluvial_file": "Cell_G4_alluvial.png", "dir_str": "900m South", "lat": 7.125332090944362, "lon": 80.16033299999998, "dist_m": 900.0, "is_target": false, "x1": 1788, "y1": 3092, "x2": 2294, "y2": 3598}, {"id": "G5", "raw_file": "Cell_G5_raw.png", "alluvial_file": "Cell_G5_alluvial.png", "dir_str": "949m South-East", "lat": 7.125332090944362, "lon": 80.16304896836215, "dist_m": 948.6832980505138, "is_target": false, "x1": 2294, "y1": 3092, "x2": 2801, "y2": 3598}, {"id": "G6", "raw_file": "Cell_G6_raw.png", "alluvial_file": "Cell_G6_alluvial.png", "dir_str": "1082m South-East", "lat": 7.125332090944362, "lon": 80.16576493672432, "dist_m": 1081.6653826391967, "is_target": false, "x1": 2801, "y1": 3092, "x2": 3307, "y2": 3598}, {"id": "G7", "raw_file": "Cell_G7_raw.png", "alluvial_file": "Cell_G7_alluvial.png", "dir_str": "1273m South-East", "lat": 7.125332090944362, "lon": 80.16848090508643, "dist_m": 1272.7922061357854, "is_target": false, "x1": 3307, "y1": 3092, "x2": 3813, "y2": 3598}];
+let currentCellId = "D4";
+let isOverview = false;
+
+function getShowMarkings() {
+  return document.getElementById("markingsToggle").checked;
+}
+
+function updateImage() {
+  const showMarkings = getShowMarkings();
+  const mainImg = document.getElementById("main-img");
+  const legend = document.getElementById("legendBar");
+  
+  if (isOverview) {
+    mainImg.src = showMarkings ? "00_GRID_INDEX_ALLUVIAL.png" : "00_GRID_INDEX_RAW.png";
+    legend.style.display = showMarkings ? "flex" : "none";
+    return;
+  }
+  
+  const cell = cells.find(c => c.id === currentCellId);
+  if (!cell) return;
+  mainImg.src = showMarkings ? cell.alluvial_file : cell.raw_file;
+  legend.style.display = showMarkings ? "flex" : "none";
+}
+
+function showCell(cid) {
+  currentCellId = cid;
+  isOverview = false;
+  const cell = cells.find(c => c.id === cid);
+  if (!cell) return;
+  document.querySelectorAll('.grid-table td').forEach(td => td.classList.remove('active'));
+  const btn = document.getElementById('btn_' + cid);
+  if (btn) btn.classList.add('active');
+  
+  document.getElementById('cell-title').innerText = 'Cell ' + cell.id + ' | ' + cell.dir_str + ' (' + cell.lat.toFixed(6) + ' N, ' + cell.lon.toFixed(6) + ' E)';
+  updateImage();
+}
+
+function showOverview() {
+  isOverview = true;
+  document.querySelectorAll('.grid-table td').forEach(td => td.classList.remove('active'));
+  document.getElementById('cell-title').innerText = 'Master 1 km Radius Grid Index Map - Algama, Kegalle';
+  updateImage();
+}
+
+function toggleMarkings() {
+  updateImage();
+}
+
+window.addEventListener('keydown', function(e) {
+  if (e.code === 'Space' || e.key === 't' || e.key === 'T') {
+    e.preventDefault();
+    const toggle = document.getElementById('markingsToggle');
+    toggle.checked = !toggle.checked;
+    toggleMarkings();
+  }
+});
+</script>
+</body>
+</html>

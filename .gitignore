@@ -1,0 +1,70 @@
+# ==============================================================================
+# Git Ignore Configuration - Sentinel-2 Gemstone Exploration Toolkit
+# ==============================================================================
+
+# Compressed Archives & Large Packages (GitHub 100MB limit safe)
+*.rar
+*.zip
+*.7z
+*.tar.gz
+*.tar.bz2
+*.tar
+
+# Copernicus Raw Sentinel-2 SAFE Directories & Granules
+*.SAFE/
+*.SAFE
+*.safe/
+*.safe
+GRANULE/
+DATASTRIP/
+
+# Raster Processing Intermediate & Output TIFs
+output_S2/
+output_AST/
+*.tif
+*.tiff
+*.jp2
+*.vrt
+*.ovr
+
+# Python Cache & Virtual Environments
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+.venv/
+ENV/
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Secrets, API Keys & Environment Configuration
+.env
+.env.*
+*.env
+
+# OS & Editor Metadata
+.DS_Store
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
