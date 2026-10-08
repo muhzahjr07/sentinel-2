@@ -37,6 +37,14 @@ This toolkit provides an end-to-end remote sensing solution for gemological expl
 - **Gem Placer Favorability Model**: Multi-criteria weighted $Z$-score synthesis with automated vegetation and cloud masking.
 - **Interactive High-Resolution Survey Suites**: 49-cell, 1km-radius sub-meter survey inspection viewers with dual-layer toggleable alluvial markings for **Ambewila (Ratnapura)** and **Algama (Kegalle)**.
 
+<p align="center">
+  <a href="docs/screenshots/portal_hub.png">
+    <img src="docs/screenshots/portal_hub.png" alt="Sentinel-2 Gemstone Exploration Portal Hub" width="100%">
+  </a>
+  <br>
+  <em>Interactive Central Exploration Portal (<a href="index.html">index.html</a>) featuring direct launch gateways for Ambewila and Algama survey platforms, alongside spectral alteration formulations.</em>
+</p>
+
 ---
 
 ## Geological Background & Illam Gravels
@@ -136,24 +144,71 @@ See [docs/SRI_LANKA_TILES.md](docs/SRI_LANKA_TILES.md) for full coordinates and 
 
 ## High-Resolution Survey Viewers
 
-The project includes two interactive, standalone web survey applications built with HTML5, CSS3, and JavaScript for micro-scale target verification.
+The project includes two interactive, standalone web survey applications built with HTML5, CSS3, and JavaScript for micro-scale target verification, accessible through a master portal.
+
+### Master Portal
+Launch [`index.html`](index.html) in any modern browser to access the central exploration hub.
+
+---
 
 ### Survey Zone 1: Ambewila, Ratnapura
 - **Coordinates**: `6.526333° N, 80.725944° E` (Center Target Cell D4)
+- **District**: Ratnapura (Alluvial corundum, blue sapphire, ruby, padparadscha)
 - **Grid Layout**: 49 cells (7x7 matrix, A1 to G7, 300m x 300m per cell)
-- **Resolution**: Sub-meter (~58 cm/pixel)
-- **Viewer**: [`sentinel-2 6.526333 N, 80.725944 E (Ambewila, Ratnapura/index.html`](sentinel-2%206.526333%20N,%2080.725944%20E%20%28Ambewila,%20Ratnapura/index.html)
+- **Resolution**: Sub-meter (~58 cm/pixel) optical baseline
+- **Interactive Viewer**: [`sentinel-2 6.526333 N, 80.725944 E (Ambewila, Ratnapura/index.html`](sentinel-2%206.526333%20N,%2080.725944%20E%20%28Ambewila,%20Ratnapura/index.html)
+
+<p align="center">
+  <a href="docs/screenshots/ambewila_survey_viewer.png">
+    <img src="docs/screenshots/ambewila_survey_viewer.png" alt="Ambewila Interactive 49-Cell Survey Viewer" width="100%">
+  </a>
+  <br>
+  <em>Ambewila Survey Viewer: 49-cell matrix inspection with Center Target Cell D4 highlighted, active stream channel vectors, and iron-oxide lateritic gravel markings.</em>
+</p>
+
+---
 
 ### Survey Zone 2: Algama, Kegalle
 - **Coordinates**: `7.133417° N, 80.160333° E` (Center Target Cell D4)
+- **District**: Kegalle / Sabaragamuwa border (Stream gravel placers & saprolitic terrace deposits)
 - **Grid Layout**: 49 cells (7x7 matrix, A1 to G7, 300m x 300m per cell)
-- **Resolution**: Sub-meter (~58 cm/pixel)
-- **Viewer**: [`ultra_closeup_1km_algama/index.html`](ultra_closeup_1km_algama/index.html)
+- **Resolution**: Sub-meter (~58 cm/pixel) optical baseline
+- **Interactive Viewer**: [`ultra_closeup_1km_algama/index.html`](ultra_closeup_1km_algama/index.html)
 
-### Master Portal:
-Open [`index.html`](index.html) in any modern browser to access the central launch hub.
+<p align="center">
+  <a href="docs/screenshots/algama_survey_viewer.png">
+    <img src="docs/screenshots/algama_survey_viewer.png" alt="Algama Interactive 49-Cell Survey Viewer" width="100%">
+  </a>
+  <br>
+  <em>Algama Survey Viewer: Center Target Cell D4 selected showing drainage axis confluence and prospective placer alluvial trap corridors.</em>
+</p>
 
-### Interactive Features:
+---
+
+### Dual-Layer Ground-Truthing Comparison
+
+Each survey cell incorporates instant dual-layer ground-truthing to compare automated geological interpretation directly against raw optical satellite captures:
+
+<p align="center">
+  <a href="docs/screenshots/cell_d4_comparison.png">
+    <img src="docs/screenshots/cell_d4_comparison.png" alt="Center Target Cell D4 Dual-Layer Ground Truthing Comparison" width="100%">
+  </a>
+  <br>
+  <em>Target Cell D4 Ground-Truthing: (Left) Alluvial Placer Interpretation showing iron-oxide gravels, stream axis, and alluvial trap corridors; (Right) Raw Optical Satellite Imagery (~58 cm/pixel).</em>
+</p>
+
+---
+
+### 1 km Radius Master Grid Survey Maps (49-Cell Grids)
+
+| Survey Zone 01: Ambewila, Ratnapura (`6.526333° N, 80.725944° E`) | Survey Zone 02: Algama, Kegalle (`7.133417° N, 80.160333° E`) |
+| :---: | :---: |
+| <a href="docs/screenshots/ambewila_grid_map.png"><img src="docs/screenshots/ambewila_grid_map.png" alt="Ambewila 1km Grid Index Map" width="100%"></a> | <a href="docs/screenshots/algama_grid_map.png"><img src="docs/screenshots/algama_grid_map.png" alt="Algama 1km Grid Index Map" width="100%"></a> |
+| *Ambewila 7x7 Exploration Grid & Alluvial Overlay* | *Algama 7x7 Exploration Grid & Alluvial Overlay* |
+
+---
+
+### Interactive Viewer Capabilities:
 - **Instant Dual-Layer Switch**: Toggle between **Alluvial Markings** (drainage corridors, gravel soils, placer axes) and **Raw Satellite Imagery**.
 - **Keyboard Shortcuts**: Press `SPACE` or `T` to toggle layers; click any grid cell (A1–G7) for instant inspection.
 - **Distance & Bearing Vectors**: Displays exact distance (meters) and bearing relative to the central target.
@@ -242,7 +297,14 @@ sentinel-2/
 │   ├── METHODOLOGY.md                   # Geological background, physics & formulas
 │   ├── CLI_REFERENCE.md                 # Complete CLI argument manual
 │   ├── QGIS_GUIDE.md                    # GIS visualization & layer styling guide
-│   └── SRI_LANKA_TILES.md               # Sri Lanka gem districts & MGRS tile lookup
+│   ├── SRI_LANKA_TILES.md               # Sri Lanka gem districts & MGRS tile lookup
+│   └── screenshots/                     # High-resolution documentation screenshots & figures
+│       ├── portal_hub.png               # Master portal interface overview
+│       ├── ambewila_survey_viewer.png   # Ambewila interactive 49-cell viewer
+│       ├── algama_survey_viewer.png     # Algama interactive 49-cell viewer
+│       ├── cell_d4_comparison.png       # Dual-layer ground-truthing comparison (D4)
+│       ├── ambewila_grid_map.png        # Ambewila 1km grid survey map
+│       └── algama_grid_map.png          # Algama 1km grid survey map
 │
 ├── sentinel-2 6.526333 N, 80.725944 E (Ambewila, Ratnapura)/
 │   ├── index.html                       # Ambewila interactive 49-cell viewer
